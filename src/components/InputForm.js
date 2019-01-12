@@ -54,11 +54,16 @@ class InputForm extends Component {
   render() {
     const { content, date, title, weather } = this.state;
     const count = this._hanziCounter(content);
-    const buttonColor = count === 100 ? "green" : "";
-    const buttonState = count === 100 ? false : true;
+    const button =
+      count === 100
+        ? { color: "green", disabled: false, text: "提交" }
+        : { color: "", disabled: true, text: "未完成" };
 
     return (
-      <div className="ui segment">
+      <div
+        className="ui centered segment"
+        style={{ maxWidth: "57em", margin: "0 auto" }}
+      >
         <form className="ui form" onSubmit={this.onFormSubmit}>
           <div className="three fields">
             <div className="field">
@@ -72,10 +77,20 @@ class InputForm extends Component {
               />
             </div>
             <div className="field">
+              <label>日期:</label>
+              <input
+                type="date"
+                name="date"
+                value={date}
+                onChange={this.onDateChange}
+              />
+            </div>
+            <div className="field">
               <label>天气:</label>
               <select
                 className="ui fluid dropdown"
                 onChange={e => this.setState({ weather: e.target.value })}
+                value={weather}
               >
                 <option value="">--optional--</option>
                 <option value="☀️">☀️</option>
@@ -88,15 +103,6 @@ class InputForm extends Component {
                 <option value="🌫">🌫</option>
               </select>
             </div>
-            <div className="field">
-              <label>日期:</label>
-              <input
-                type="date"
-                name="date"
-                value={date}
-                onChange={this.onDateChange}
-              />
-            </div>
           </div>
           <div className="field">
             <label>百字:</label>
@@ -104,11 +110,11 @@ class InputForm extends Component {
           </div>
           <p> {count} / 100 字</p>
           <button
-            className={`ui ${buttonColor} button`}
-            disabled={buttonState}
+            className={`ui ${button.color} button`}
+            disabled={button.disabled}
             type="submit"
           >
-            Submit
+            {button.text}
           </button>
         </form>
         <BaiziDisplay

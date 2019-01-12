@@ -9,17 +9,18 @@ function formatDate(d) {
 
 const BaiziDisplay = ({ date, text, weather, title }) => {
   return (
-    <div className="ui massive message">
-      <h3 className="ui right aligned header">{`${formatDate(
-        date
-      )} ${weather}`}</h3>
-      <h2 className="ui left aligned header">{title}</h2>
-      <p>{formatContent(text)}</p>
+    <div style={{ maxWidth: "57em", margin: "10px auto" }}>
+      <div className="ui container">
+        <div className="ui massive message">
+          <h3 className="ui right aligned header">{`${formatDate(
+            date
+          )} ${weather}`}</h3>
+          <h2 className="ui left aligned header">{title}</h2>
+          <p>{formatContent(text)}</p>
+        </div>
+      </div>
     </div>
   );
 };
-
-// tomorrow: add "mode" bar to select pure text mode or source mode
-// add header /navebar
 
 export default BaiziDisplay;
