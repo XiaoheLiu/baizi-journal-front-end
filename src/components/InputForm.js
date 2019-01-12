@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import BaiziDisplay from "./BaiziDisplay";
+import { formatContent, formatDate } from "../helpers/formatBaizi";
 
 class InputForm extends Component {
   state = {
@@ -56,7 +56,7 @@ class InputForm extends Component {
     const count = this._hanziCounter(content);
     const button =
       count === 100
-        ? { color: "green", disabled: false, text: "提交" }
+        ? { color: "green", disabled: false, text: "发布" }
         : { color: "", disabled: true, text: "未完成" };
 
     return (
@@ -117,12 +117,13 @@ class InputForm extends Component {
             {button.text}
           </button>
         </form>
-        <BaiziDisplay
-          text={content}
-          date={date}
-          weather={weather}
-          title={title}
-        />
+        <div className="ui massive message">
+          <h3 className="ui right aligned header">{`${formatDate(
+            date
+          )} ${weather}`}</h3>
+          <h2 className="ui left aligned header">{title}</h2>
+          <p>{formatContent(content)}</p>
+        </div>
       </div>
     );
   }

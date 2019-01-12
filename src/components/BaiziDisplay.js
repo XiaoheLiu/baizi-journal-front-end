@@ -1,11 +1,5 @@
 import React from "react";
-import { formatContent } from "../helpers/formatBaizi";
-
-function formatDate(d) {
-  const month = d.slice(5, 7).replace(/^0/, "");
-  const day = d.slice(8).replace(/^0/, "");
-  return `${d.slice(0, 4)}年 ${month}月 ${day}日`;
-}
+import { formatDate } from "../helpers/formatBaizi";
 
 const BaiziDisplay = ({ date, text, weather, title }) => {
   return (
@@ -16,7 +10,7 @@ const BaiziDisplay = ({ date, text, weather, title }) => {
             date
           )} ${weather}`}</h3>
           <h2 className="ui left aligned header">{title}</h2>
-          <p>{formatContent(text)}</p>
+          <p>{text}</p>
         </div>
       </div>
     </div>
