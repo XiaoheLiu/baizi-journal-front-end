@@ -27,7 +27,7 @@ class App extends Component {
     // Then change <BaiziDisplay> to make a grid baizi possible.
     const newBaizi = { content: formatContent(content), date, weather, title };
     const res = await axios.post("/api/baizis", newBaizi);
-    this.setState({ baizis: [...this.state.baizis, newBaizi] });
+    this.setState({ baizis: [...this.state.baizis, res.data] });
   }
 
   render() {
@@ -40,7 +40,7 @@ class App extends Component {
           date={b.date}
           weather={b.weather}
           title={b.title}
-          key={i}
+          key={b._id}
         />
       ));
     return (

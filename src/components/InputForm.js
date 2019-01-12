@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { formatContent, formatDate } from "../helpers/formatBaizi";
+import BaiziDisplay from "./BaiziDisplay";
 
 class InputForm extends Component {
   state = {
@@ -62,7 +62,7 @@ class InputForm extends Component {
     return (
       <div
         className="ui centered segment"
-        style={{ maxWidth: "57em", margin: "0 auto" }}
+        style={{ maxWidth: "62em", margin: "0 auto" }}
       >
         <form className="ui form" onSubmit={this.onFormSubmit}>
           <div className="three fields">
@@ -117,13 +117,13 @@ class InputForm extends Component {
             {button.text}
           </button>
         </form>
-        <div className="ui massive message">
-          <h3 className="ui right aligned header">{`${formatDate(
-            date
-          )} ${weather}`}</h3>
-          <h2 className="ui left aligned header">{title}</h2>
-          <p>{formatContent(content)}</p>
-        </div>
+        <BaiziDisplay
+          text={content}
+          date={date}
+          weather={weather}
+          title={title}
+          key={1}
+        />
       </div>
     );
   }
