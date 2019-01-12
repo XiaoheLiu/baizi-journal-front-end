@@ -9,7 +9,7 @@ function formatDate(d) {
 
 const BaiziDisplay = ({ date, text, weather, title }) => {
   return (
-    <div style={{ maxWidth: "57em", margin: "10px auto" }}>
+    <div style={{ maxWidth: "57em", margin: "15px auto" }}>
       <div className="ui container">
         <div className="ui massive message">
           <h3 className="ui right aligned header">{`${formatDate(
