@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import BaiziDisplay from "./BaiziDisplay";
+import InfoMessage from "./InfoMessage";
 
 class InputForm extends Component {
   state = {
     content: "",
     date: "",
     title: "",
-    weather: ""
+    weather: "",
+    showInfoMessage: true
   };
 
   componentDidMount() {
@@ -30,6 +32,10 @@ class InputForm extends Component {
       title: "",
       weather: ""
     });
+  };
+
+  onCloseInfoMessage = () => {
+    this.setState({ showInfoMessage: false });
   };
 
   _hanziCounter(str) {
@@ -64,6 +70,10 @@ class InputForm extends Component {
         className="ui centered segment"
         style={{ maxWidth: "62em", margin: "0 auto" }}
       >
+        {this.state.showInfoMessage ? (
+          <InfoMessage onClose={this.onCloseInfoMessage} />
+        ) : null}
+
         <form className="ui form" onSubmit={this.onFormSubmit}>
           <div className="three fields">
             <div className="field">
@@ -92,7 +102,7 @@ class InputForm extends Component {
                 onChange={e => this.setState({ weather: e.target.value })}
                 value={weather}
               >
-                <option value="">--optional--</option>
+                <option value="">--（选填）--</option>
                 <option value="☀️">☀️</option>
                 <option value="⛅️">⛅️</option>
                 <option value="🌦">🌦</option>
@@ -117,6 +127,7 @@ class InputForm extends Component {
             {button.text}
           </button>
         </form>
+        <div className="ui horizontal divider">预览</div>
         <BaiziDisplay
           text={content}
           date={date}

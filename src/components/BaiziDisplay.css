@@ -1,10 +1,11 @@
 .baiziDisplay {
-  width: 60em;
+  max-width: 60em;
   margin: 15px auto;
 }
 
-.baiziCard {
-  height: 14em;
+.baiziTitle {
+  text-indent: 0.5em;
+  letter-spacing: 0.3em;
 }
 
 .character {

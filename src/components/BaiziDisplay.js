@@ -5,11 +5,12 @@ import { formatDate, formatHtml } from "../helpers/formatBaizi";
 const BaiziDisplay = ({ date, text, weather, title }) => {
   return (
     <div className="baiziDisplay">
-      <div className="ui huge message baiziCard">
-        <h3 className="ui right aligned header">{`${formatDate(
+      <div className="ui huge message">
+        <h2 className="ui left floated header  baiziTitle">{title}</h2>
+        <h2 className="ui right aligned header">{`${formatDate(
           date
-        )} ${weather}`}</h3>
-        <h2 className="ui left aligned header">{title}</h2>
+        )} ${weather}`}</h2>
+
         <p>{formatHtml(text)}</p>
       </div>
     </div>
