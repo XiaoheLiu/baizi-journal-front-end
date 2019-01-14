@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import InputForm from "./components/InputForm";
 import NavBar from "./components/NavBar";
+import Introduction from "./components/Introduction";
+import InputForm from "./components/InputForm";
 import BZCards from "./components/BZCards";
 import { formatContent } from "./utils/formatBaizi";
 import axios from "axios";
@@ -35,16 +36,7 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <NavBar />
-            <Route
-              path="/"
-              exact
-              render={() => (
-                <div>
-                  <InputForm onSubmit={this.onInputFormSubmit} />
-                  <BZCards baizis={this.state.baizis} />
-                </div>
-              )}
-            />
+            <Route path="/" exact component={Introduction} />
             <Route
               path="/write"
               render={() => <InputForm onSubmit={this.onInputFormSubmit} />}
@@ -55,6 +47,11 @@ class App extends Component {
             />
           </div>
         </BrowserRouter>
+        <div className="ui inverted brown segment">
+          <h5 className="ui center aligned header">
+            Copyright 2019 · Athena Liu and Shi Cheng
+          </h5>
+        </div>
       </div>
     );
   }
