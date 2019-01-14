@@ -1,0 +1,1 @@
+export const SINGLE_BAIZI_CHARACTER_LIMIT = 100;

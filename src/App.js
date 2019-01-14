@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import InputForm from "./InputForm";
-import NavBar from "./NavBar";
-import BaiziDisplay from "./BaiziDisplay";
-import { formatContent } from "../helpers/formatBaizi";
+import InputForm from "./components/InputForm";
+import NavBar from "./components/NavBar";
+import BZDisplay from "./components/BZDisplay";
+import { formatContent } from "./utils/formatBaizi";
 import axios from "axios";
 
 class App extends Component {
@@ -35,7 +35,7 @@ class App extends Component {
       .slice(0)
       .reverse()
       .map((b, i) => (
-        <BaiziDisplay
+        <BZDisplay
           text={b.content}
           date={b.date}
           weather={b.weather}

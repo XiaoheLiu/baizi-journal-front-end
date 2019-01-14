@@ -1,6 +1,10 @@
 import React, { Component } from "react";
-import BaiziDisplay from "./BaiziDisplay";
-import InfoMessage from "./InfoMessage";
+import BZDisplay from "../BZDisplay";
+import InfoMessage from "../InfoMessage";
+import { getToday } from '../../utils/date';
+import { hanziCounter } from '../../utils/formatBaizi';
+
+import { SINGLE_BAIZI_CHARACTER_LIMIT } from "../../constants";
 
 class InputForm extends Component {
   state = {
@@ -12,7 +16,7 @@ class InputForm extends Component {
   };
 
   componentDidMount() {
-    this.setState({ date: this._getToday() });
+    this.setState({ date: getToday() });
   }
 
   onDateChange = e => {
@@ -28,7 +32,7 @@ class InputForm extends Component {
     this.props.onSubmit(this.state);
     this.setState({
       content: "",
-      date: this._getToday(),
+      date: getToday(),
       title: "",
       weather: ""
     });
@@ -38,30 +42,11 @@ class InputForm extends Component {
     this.setState({ showInfoMessage: false });
   };
 
-  _hanziCounter(str) {
-    let count = 0;
-    const chRegex = /[\u4e00-\u9fa5]/g,
-      groupRegex = /\[([^\]]+)\]/g;
-    if (str.match(chRegex) != null) {
-      count = str.match(chRegex).length;
-    }
-    if (str.match(groupRegex) != null) {
-      count += str.match(groupRegex).length;
-    }
-    return count;
-  }
-
-  _getToday() {
-    const local = new Date();
-    local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
-    return local.toJSON().slice(0, 10);
-  }
-
   render() {
-    const { content, date, title, weather } = this.state;
-    const count = this._hanziCounter(content);
+    const { content, date, title, weather, showInfoMessage } = this.state;
+    const count = hanziCounter(content);
     const button =
-      count === 100
+      count === SINGLE_BAIZI_CHARACTER_LIMIT
         ? { color: "green", disabled: false, text: "发布" }
         : { color: "", disabled: true, text: "未完成" };
 
@@ -70,10 +55,7 @@ class InputForm extends Component {
         className="ui centered segment"
         style={{ maxWidth: "62em", margin: "0 auto" }}
       >
-        {this.state.showInfoMessage ? (
-          <InfoMessage onClose={this.onCloseInfoMessage} />
-        ) : null}
-
+        {showInfoMessage && <InfoMessage onClose={this.onCloseInfoMessage} />}
         <form className="ui form" onSubmit={this.onFormSubmit}>
           <div className="three fields">
             <div className="field">
@@ -128,7 +110,7 @@ class InputForm extends Component {
           </button>
         </form>
         <div className="ui horizontal divider">预览</div>
-        <BaiziDisplay
+        <BZDisplay
           text={content}
           date={date}
           weather={weather}
