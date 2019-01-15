@@ -10,20 +10,24 @@ const NavBar = () => {
           <Link to="/">百字本</Link>
         </div>
         <Link to="/write" className="item">
-          写百字
+          <i className="edit outline icon" />写
         </Link>
         <Link to="/read" className="item">
-          读百字
+          <i className="newspaper outline icon" />读
+        </Link>
+        <Link to="/search" className="item">
+          <i className="search icon" />搜
         </Link>
         <div className="right inverted brown menu">
-          <a className="item">
+          <Link to="/signin" className="item">
             <i className="sign in alternate icon" />
-          </a>
+            登入
+          </Link>
           <Link to="/signup" className="item">
             <strong>注册</strong>
           </Link>
           <a className="item">
-            <i className="sign out alternate icon" />
+            <i className="sign out alternate icon" /> 登出
           </a>
         </div>
       </div>

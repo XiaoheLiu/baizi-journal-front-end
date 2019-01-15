@@ -5,6 +5,7 @@ import Introduction from "./components/Introduction";
 import InputForm from "./components/InputForm";
 import BZCards from "./components/BZCards";
 import Footer from "./components/Footer";
+import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
 import { formatContent } from "./utils/formatBaizi";
 import axios from "axios";
@@ -47,6 +48,7 @@ class App extends Component {
               path="/read"
               render={() => <BZCards baizis={this.state.baizis} />}
             />
+            <Route path="/signin" component={SignInForm} />
             <Route path="/signup" component={SignUpForm} />
           </div>
         </BrowserRouter>
