@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const request = ({ method, url, data, headers}) => axios({
+export const request = ({ method, url, data, headers}) => axios({
   method,
   url,
   data,
@@ -13,16 +13,3 @@ const request = ({ method, url, data, headers}) => axios({
 .catch((error) => console.log(error));
 
 const handleResponse = (response) => response.data;
-
-export const createUser = async (username, password) => {
-  const requestOptions = {
-    method: 'PUT',
-    url: 'http://localhost:3001/api/user',
-    data: {
-      username,
-      password,
-    }
-  }
-  const response = await request(requestOptions);
-  return response;
-} 

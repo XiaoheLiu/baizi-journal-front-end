@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import FormErrors from "./FormErrors";
-import { createUser } from '../../integration/index';
+import { createUser } from '../../integration/user';
 import { PASSWORD_MIN_LENGTH, USERNAME_MAX_LENGTH } from "../../constants";
 
 class SignUpForm extends Component {
