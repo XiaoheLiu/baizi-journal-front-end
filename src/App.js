@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar";
 import Introduction from "./components/Introduction";
 import InputForm from "./components/InputForm";
 import BZCards from "./components/BZCards";
+import Footer from "./components/Footer";
 import { formatContent } from "./utils/formatBaizi";
 import axios from "axios";
 
@@ -32,7 +33,7 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{ marginTop: "4em" }}>
+      <div style={{ margin: "4em 2em 2em 4em" }}>
         <BrowserRouter>
           <div>
             <NavBar />
@@ -47,11 +48,7 @@ class App extends Component {
             />
           </div>
         </BrowserRouter>
-        <div className="ui inverted brown segment">
-          <h5 className="ui center aligned header">
-            Copyright 2019 · Athena Liu and Shi Cheng
-          </h5>
-        </div>
+        <Footer />
       </div>
     );
   }
