@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import FormErrors from "./FormErrors";
-
+import { createUser } from '../../integration/index';
 import { PASSWORD_MIN_LENGTH, USERNAME_MAX_LENGTH } from "../../constants";
 
 class SignUpForm extends Component {
@@ -12,6 +12,12 @@ class SignUpForm extends Component {
     passwordValid: false,
     formValid: false
   };
+
+  onFormSubmit = async (event) => {
+    if (event !== undefined && event.preventDefault) event.preventDefault();
+    const token = await createUser('username','ppppppp');
+    console.log('!!!!!!', token);
+  }
 
   handleUserInput(e) {
     const name = e.target.name;
@@ -73,7 +79,7 @@ class SignUpForm extends Component {
         className="ui segment"
         style={{ width: "90%", maxWidth: "500px", margin: "0 auto" }}
       >
-        <form className="ui form">
+        <form className="ui form" onSubmit={this.onFormSubmit}>
           <div
             className={`field
                  ${this.errorClass(this.state.formErrors.username)}`}
