@@ -15,11 +15,16 @@ const NavBar = () => {
         <Link to="/read" className="item">
           读百字
         </Link>
-        <div className="ui right search item">
-          <div className="ui transparent inverted icon input">
-            <input type="text" placeholder="搜索..." />
-            <i className="search link icon" />
-          </div>
+        <div className="right inverted brown menu">
+          <a className="item">
+            <i className="sign in alternate icon" />
+          </a>
+          <Link to="/signup" className="item">
+            <strong>注册</strong>
+          </Link>
+          <a className="item">
+            <i className="sign out alternate icon" />
+          </a>
         </div>
       </div>
     </div>
