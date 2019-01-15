@@ -51,7 +51,7 @@ class InputForm extends Component {
         : { color: "", disabled: true, text: "未完成" };
 
     return (
-      <div style={{ maxWidth: "62em", margin: "0 auto" }}>
+      <div style={{ maxWidth: "62em", width: "90%", margin: "0 auto" }}>
         <h4 className="ui horizontal divider header" id="xiebaizi">
           <i className="edit outline icon" />
         </h4>

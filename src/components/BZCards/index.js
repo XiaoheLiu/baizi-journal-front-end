@@ -17,7 +17,7 @@ class BZCards extends Component {
       ));
 
     return (
-      <div style={{ maxWidth: "62em", margin: "10px auto" }}>
+      <div style={{ maxWidth: "62em", width: "90%", margin: "10px auto" }}>
         <h4 className="ui horizontal divider header" id="dubaizi">
           <i className="newspaper outline icon" />
         </h4>

@@ -13,7 +13,7 @@ const Introduction = () => {
       <h4 className="ui center aligned header">试写百字</h4>
       <InputForm onSubmit={s => {}} />
       <p className="ui center aligned sub header">
-        注：试写功能不包含保存。如想创建自己的百字本，请点击右上角注册账号。
+        注：试写功能不可保存。如想创建自己的百字本，请点击右上角注册账号。
       </p>
     </div>
   );

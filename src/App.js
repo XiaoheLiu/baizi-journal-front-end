@@ -33,7 +33,7 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{ margin: "4em 2em 2em 4em" }}>
+      <div style={{ margin: "4em auto" }}>
         <BrowserRouter>
           <div>
             <NavBar />
