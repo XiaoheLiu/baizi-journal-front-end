@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import FormErrors from "./FormErrors";
-import { createUser } from '../../integration/user';
+import { createUser } from "../../integration/user";
 import { PASSWORD_MIN_LENGTH, USERNAME_MAX_LENGTH } from "../../constants";
 
 class SignUpForm extends Component {
@@ -13,11 +13,11 @@ class SignUpForm extends Component {
     formValid: false
   };
 
-  onFormSubmit = async (event) => {
+  onFormSubmit = async event => {
     if (event !== undefined && event.preventDefault) event.preventDefault();
-    const token = await createUser('username','ppppppp');
-    console.log('!!!!!!', token);
-  }
+    const token = await createUser("username", "ppppppp");
+    console.log("!!!!!!", token);
+  };
 
   handleUserInput(e) {
     const name = e.target.name;
@@ -34,7 +34,7 @@ class SignUpForm extends Component {
 
     switch (fieldName) {
       case "username":
-        const regex = new RegExp("^[-w.@]{1," + USERNAME_MAX_LENGTH + "}$/i");
+        const regex = new RegExp("^[-\\w@\\.]{1," + USERNAME_MAX_LENGTH + "}$");
         usernameValid = value.match(regex);
         fieldValidationErrors.username = usernameValid
           ? ""
