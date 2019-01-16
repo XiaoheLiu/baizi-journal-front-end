@@ -15,8 +15,11 @@ class SignUpForm extends Component {
 
   onFormSubmit = async event => {
     if (event !== undefined && event.preventDefault) event.preventDefault();
-    const token = await createUser("username", "ppppppp");
-    console.log("!!!!!!", token);
+    const token = await createUser(
+      event.target.username.value,
+      event.target.password.value
+    );
+    console.log(token, event.target.password.value);
   };
 
   handleUserInput(e) {
