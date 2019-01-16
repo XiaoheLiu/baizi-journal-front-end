@@ -18,15 +18,6 @@ class App extends Component {
     this.onInputFormSubmit = this.onInputFormSubmit.bind(this);
   }
 
-  componentWillMount() {
-    this.loadBaizis();
-  }
-
-  async loadBaizis() {
-    const response = await axios.get("/api/baizis");
-    this.setState({ baizis: response.data });
-  }
-
   async onInputFormSubmit({ content, date, weather, title }) {
     const newBaizi = { content: formatContent(content), date, weather, title };
     const res = await axios.post("/api/baizis", newBaizi);
@@ -44,10 +35,7 @@ class App extends Component {
               path="/write"
               render={() => <InputForm onSubmit={this.onInputFormSubmit} />}
             />
-            <Route
-              path="/read"
-              render={() => <BZCards baizis={this.state.baizis} />}
-            />
+            <Route path="/read" render={() => <BZCards />} />
             <Route path="/signin" component={SignInForm} />
             <Route path="/signup" component={SignUpForm} />
           </div>
