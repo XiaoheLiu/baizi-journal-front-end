@@ -16,7 +16,14 @@ class App extends Component {
   // === Not Working ===
   onBaiziInputSubmit = newBaizi => {
     const content = formatContent(newBaizi.content);
-    const baizi = { ...newBaizi, content };
+    // const baizi = { ...newBaizi, content };
+    const baizi = {
+      content: "喵喵喵",
+      title: "test",
+      date: "2018-09-18",
+      weather: ""
+    };
+    console.log(baizi);
     this.props.createBaizi(baizi);
   };
 
