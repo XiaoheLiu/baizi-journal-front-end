@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import Introduction from "./components/Introduction";
-import InputForm from "./components/InputForm";
-import BZCards from "./components/BZCards";
+import Landing from "./components/Landing";
+import BaiziInput from "./components/BaiziInput";
+import BaiziList from "./components/BaiziList";
 import Footer from "./components/Footer";
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
@@ -15,10 +15,10 @@ class App extends Component {
     super(props);
     this.state = { baizis: [] };
 
-    this.onInputFormSubmit = this.onInputFormSubmit.bind(this);
+    this.onBaiziInputSubmit = this.onBaiziInputSubmit.bind(this);
   }
 
-  async onInputFormSubmit({ content, date, weather, title }) {
+  async onBaiziInputSubmit({ content, date, weather, title }) {
     const newBaizi = { content: formatContent(content), date, weather, title };
     const res = await axios.post("/api/baizis", newBaizi);
     this.setState({ baizis: [...this.state.baizis, res.data] });
@@ -30,12 +30,12 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <NavBar />
-            <Route path="/" exact component={Introduction} />
+            <Route path="/" exact component={Landing} />
             <Route
               path="/write"
-              render={() => <InputForm onSubmit={this.onInputFormSubmit} />}
+              render={() => <BaiziInput onSubmit={this.onBaiziInputSubmit} />}
             />
-            <Route path="/read" render={() => <BZCards />} />
+            <Route path="/read" render={() => <BaiziList />} />
             <Route path="/signin" component={SignInForm} />
             <Route path="/signup" component={SignUpForm} />
           </div>

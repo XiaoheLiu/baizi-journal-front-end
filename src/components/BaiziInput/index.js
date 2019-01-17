@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import BZDisplay from "../BZDisplay";
-import InfoMessage from "../InfoMessage";
+import Baizi from "../Baizi";
+import InfoMessage from "./InfoMessage";
 import { getToday } from "../../utils/date";
 import { hanziCounter } from "../../utils/formatBaizi";
 
 import { SINGLE_BAIZI_CHARACTER_LIMIT } from "../../constants";
 
-class InputForm extends Component {
+class BaiziInput extends Component {
   state = {
     content: "",
     date: "",
@@ -111,8 +111,8 @@ class InputForm extends Component {
             </button>
           </form>
           <div className="ui horizontal divider">预览</div>
-          <BZDisplay
-            text={content}
+          <Baizi
+            content={content}
             date={date}
             weather={weather}
             title={title}
@@ -124,4 +124,4 @@ class InputForm extends Component {
   }
 }
 
-export default InputForm;
+export default BaiziInput;

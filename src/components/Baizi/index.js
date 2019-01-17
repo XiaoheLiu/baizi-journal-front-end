@@ -1,9 +1,9 @@
 import React from "react";
-import "./BZDisplay.css";
+import "./Baizi.css";
 import { formatDate } from "../../utils/date";
 import { formatHtml } from "../../utils/formatBaizi";
 
-const BZDisplay = ({ date, content, weather, title }) => {
+const Baizi = ({ date, content, weather, title }) => {
   return (
     <div className="baiziDisplay">
       <div className="ui huge message">
@@ -17,4 +17,4 @@ const BZDisplay = ({ date, content, weather, title }) => {
   );
 };
 
-export default BZDisplay;
+export default Baizi;

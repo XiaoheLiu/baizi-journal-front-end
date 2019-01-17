@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchBaizis } from "../../actions";
-import BZDisplay from "../BZDisplay";
+import Baizi from "../Baizi";
 
-class BZCards extends Component {
+class BaiziList extends Component {
   componentDidMount() {
     this.props.fetchBaizis();
   }
@@ -13,7 +13,7 @@ class BZCards extends Component {
       .slice(0)
       .reverse()
       .map(b => (
-        <BZDisplay
+        <Baizi
           content={b.content}
           date={b.date}
           weather={b.weather}
@@ -42,4 +42,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { fetchBaizis }
-)(BZCards);
+)(BaiziList);

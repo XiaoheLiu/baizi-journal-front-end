@@ -1,8 +1,8 @@
 import React from "react";
-import InputForm from "../InputForm";
-import "./Introduction.css";
+import BaiziInput from "../BaiziInput";
+import "./Landing.css";
 
-const Introduction = () => {
+const Landing = () => {
   return (
     <div style={{ marginTop: "-1em" }}>
       <div className="jumbotron">
@@ -11,7 +11,7 @@ const Introduction = () => {
         <p>也许不会百炼成钢，但却可从百字之间窥见一个真实的自己。</p>
       </div>
       <h4 className="ui center aligned header">试写百字</h4>
-      <InputForm onSubmit={s => {}} />
+      <BaiziInput onSubmit={s => {}} />
       <p className="ui center aligned sub header">
         注：试写功能不可保存。如想创建自己的百字本，请点击右上角注册账号。
       </p>
@@ -19,4 +19,4 @@ const Introduction = () => {
   );
 };
 
-export default Introduction;
+export default Landing;
