@@ -4,8 +4,8 @@ const BASE_URL = `http://localhost:3001/api/user`;
 
 export const createUser = async (username, password) => {
   const requestOptions = {
-    method: 'PUT',
-    url: BASE_URL,
+    method: 'POST',
+    url: `${BASE_URL}/create`,
     data: {
       username,
       password,
@@ -18,7 +18,7 @@ export const createUser = async (username, password) => {
 export const authUser = async (username, password) => {
   const requestOptions = {
     method: 'POST',
-    url: BASE_URL,
+    url: `${BASE_URL}/auth`,
     data: {
       username,
       password,
