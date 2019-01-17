@@ -10,29 +10,12 @@ import Footer from "./components/Footer";
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
 import { formatContent } from "./utils/formatBaizi";
-import axios from "axios";
 
 class App extends Component {
-  // === Not Working ===
   onBaiziInputSubmit = newBaizi => {
     const content = formatContent(newBaizi.content);
-    // const baizi = { ...newBaizi, content };
-    const baizi = {
-      content: "喵喵喵",
-      title: "test",
-      date: "2018-09-18",
-      weather: ""
-    };
-    console.log(baizi);
-    this.props.createBaizi(baizi);
+    this.props.createBaizi({ ...newBaizi, content });
   };
-
-  // === Working ===
-  // async onBaiziInputSubmit({ content, date, weather, title }) {
-  //   const newBaizi = { content: formatContent(content), date, weather, title };
-  //   const res = await axios.post("/api/baizis", newBaizi);
-  //   // this.setState({ baizis: [...this.state.baizis, res.data] });
-  // }
 
   render() {
     return (

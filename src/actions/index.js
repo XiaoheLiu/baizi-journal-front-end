@@ -6,7 +6,7 @@ export const fetchBaizis = () => async dispatch => {
   dispatch({ type: FETCH_BAIZIS, payload: response.data });
 };
 
-export const createBaizi = () => async (dispatch, newBaizi) => {
+export const createBaizi = newBaizi => async (dispatch, getState) => {
   const response = await baiziApi.post("/api/baizis", newBaizi);
   dispatch({ type: CREATE_BAIZI, payload: response.data });
 };
