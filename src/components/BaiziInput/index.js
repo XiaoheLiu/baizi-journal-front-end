@@ -9,27 +9,20 @@ import { SINGLE_BAIZI_CHARACTER_LIMIT } from "../../constants";
 class BaiziInput extends Component {
   state = {
     content: "",
-    date: "",
+    date: getToday(),
     title: "",
     weather: "",
     showInfoMessage: true
   };
 
-  componentDidMount() {
-    this.setState({ date: getToday() });
-  }
-
-  onDateChange = e => {
-    this.setState({ date: e.target.value });
-  };
-
-  onTextareaChange = e => {
-    this.setState({ content: e.target.value });
+  onInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   onFormSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
+    const { showInfoMessage, ...baizi } = this.state;
+    this.props.onSubmit(baizi);
     this.setState({
       content: "",
       date: getToday(),
@@ -66,7 +59,7 @@ class BaiziInput extends Component {
                   name="title"
                   value={title}
                   autoComplete="off"
-                  onChange={e => this.setState({ title: e.target.value })}
+                  onChange={this.onInputChange}
                 />
               </div>
               <div className="field">
@@ -75,14 +68,15 @@ class BaiziInput extends Component {
                   type="date"
                   name="date"
                   value={date}
-                  onChange={this.onDateChange}
+                  onChange={this.onInputChange}
                 />
               </div>
               <div className="field">
                 <label>天气:</label>
                 <select
                   className="ui fluid dropdown"
-                  onChange={e => this.setState({ weather: e.target.value })}
+                  onChange={this.onInputChange}
+                  name="weather"
                   value={weather}
                 >
                   <option value="">--（选填）--</option>
@@ -99,7 +93,11 @@ class BaiziInput extends Component {
             </div>
             <div className="field">
               <label>百字:</label>
-              <textarea value={content} onChange={this.onTextareaChange} />
+              <textarea
+                value={content}
+                name="content"
+                onChange={this.onInputChange}
+              />
             </div>
             <p> {count} / 100 字</p>
             <button

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { createBaizi } from "./actions";
 import NavBar from "./components/NavBar";
 import Landing from "./components/Landing";
 import BaiziInput from "./components/BaiziInput";
@@ -11,18 +13,19 @@ import { formatContent } from "./utils/formatBaizi";
 import axios from "axios";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { baizis: [] };
+  // === Not Working ===
+  onBaiziInputSubmit = newBaizi => {
+    const content = formatContent(newBaizi.content);
+    const baizi = { ...newBaizi, content };
+    this.props.createBaizi(baizi);
+  };
 
-    this.onBaiziInputSubmit = this.onBaiziInputSubmit.bind(this);
-  }
-
-  async onBaiziInputSubmit({ content, date, weather, title }) {
-    const newBaizi = { content: formatContent(content), date, weather, title };
-    const res = await axios.post("/api/baizis", newBaizi);
-    this.setState({ baizis: [...this.state.baizis, res.data] });
-  }
+  // === Working ===
+  // async onBaiziInputSubmit({ content, date, weather, title }) {
+  //   const newBaizi = { content: formatContent(content), date, weather, title };
+  //   const res = await axios.post("/api/baizis", newBaizi);
+  //   // this.setState({ baizis: [...this.state.baizis, res.data] });
+  // }
 
   render() {
     return (
@@ -35,7 +38,7 @@ class App extends Component {
               path="/write"
               render={() => <BaiziInput onSubmit={this.onBaiziInputSubmit} />}
             />
-            <Route path="/read" render={() => <BaiziList />} />
+            <Route path="/read" component={BaiziList} />
             <Route path="/signin" component={SignInForm} />
             <Route path="/signup" component={SignUpForm} />
           </div>
@@ -46,4 +49,7 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+  null,
+  { createBaizi }
+)(App);
