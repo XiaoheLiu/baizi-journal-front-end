@@ -1,59 +1,46 @@
 import React, { Component } from "react";
-
-import { PASSWORD_MIN_LENGTH } from "../../constants";
+import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
 
 class SignInForm extends Component {
-  state = {
-    username: "",
-    password: ""
+  renderField = ({ input, label, type, meta: { touched, error } }) => {
+    const className = `field ${error && touched ? "error" : ""}`;
+    return (
+      <div className={className}>
+        <label>{label}</label>
+        <input {...input} placeholder={label} type={type} />
+        {touched && error && (
+          <p style={{ color: "maroon", marginTop: "5px" }}>{error}</p>
+        )}
+      </div>
+    );
   };
 
-  handleUserInput(e) {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({ [name]: value });
-  }
-
-  formDisabled(state) {
-    return (
-      state.username.length === 0 || state.password.length < PASSWORD_MIN_LENGTH
-    );
-  }
-
   render() {
+    const { handleSubmit, submitting, invalid } = this.props;
+
     return (
       <div
         className="ui segment"
         style={{ width: "90%", maxWidth: "500px", margin: "0 auto" }}
       >
-        <form className="ui form">
-          <div className={`field`}>
-            <label>用户名</label>
-            <input
-              type="text"
-              name="username"
-              placeholder="用户名"
-              value={this.state.username}
-              onChange={e => this.handleUserInput(e)}
-            />
-          </div>
-          <div
-            className={`field
-                 `}
-          >
-            <label>密码</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="密码"
-              value={this.state.password}
-              onChange={e => this.handleUserInput(e)}
-            />
-          </div>
+        <form className="ui form" onSubmit={handleSubmit}>
+          <Field
+            name="username"
+            label="用户名"
+            component={this.renderField}
+            type="text"
+          />
+          <Field
+            name="password"
+            label="密码"
+            component={this.renderField}
+            type="password"
+          />
           <button
             className="ui button"
             type="submit"
-            disabled={this.formDisabled(this.state)}
+            disabled={submitting | invalid}
           >
             登入
           </button>
@@ -63,4 +50,20 @@ class SignInForm extends Component {
   }
 }
 
-export default SignInForm;
+const validate = values => {
+  const errors = {};
+  if (!values.username) {
+    errors.username = "用户名不能为空";
+  }
+  if (!values.password) {
+    errors.password = "密码不能为空";
+  }
+  return errors;
+};
+
+export default connect(null)(
+  reduxForm({
+    form: "SignIn",
+    validate
+  })(SignInForm)
+);
