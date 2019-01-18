@@ -24,12 +24,23 @@ export const createBaizi = newBaizi => async (dispatch, getState) => {
 export const createUser = newUser => async dispatch => {
   const token = await userApi.createUser(newUser.username, newUser.password);
   if (token) {
-    console.log(token);
     dispatch({
       type: types.CREATE_USER,
       payload: token
     });
   } else {
     console.log("Error with createUser");
+  }
+};
+
+export const authUser = user => async dispatch => {
+  const token = await userApi.authUser(user.username, user.password);
+  if (token) {
+    dispatch({
+      type: types.AUTH_USER,
+      payload: token
+    });
+  } else {
+    console.log("Error: can't log in");
   }
 };
