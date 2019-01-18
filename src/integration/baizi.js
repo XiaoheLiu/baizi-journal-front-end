@@ -1,28 +1,28 @@
-import { request } from './index';
+import { request } from "./index";
 
 const BASE_URL = `http://localhost:3001/api/baizi`;
 
-export const createBaizi = async (body) => {
+export const createBaizi = async body => {
   const requestOptions = {
-    method: 'POST',
+    method: "POST",
     url: BASE_URL,
     data: body,
     headers: {
-      'authorization': 'user-token'
+      authorization: "user-token"
     }
   };
   const data = await request(requestOptions);
   return data;
-}
+};
 
-export const getBaiziByUser = async () => {
+export const fetchBaizis = async () => {
   const requestOptions = {
-    method: 'GET',
+    method: "GET",
     url: BASE_URL,
     headers: {
-      'authorization': 'user-token'
+      authorization: "user-token"
     }
   };
   const data = await request(requestOptions);
   return data;
-}
+};

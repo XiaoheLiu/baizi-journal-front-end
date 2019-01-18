@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
+import { createUser } from "../../actions";
 import { PASSWORD_MIN_LENGTH, USERNAME_MAX_LENGTH } from "../../constants";
 
 class SignUpForm extends Component {
@@ -17,6 +18,10 @@ class SignUpForm extends Component {
     );
   };
 
+  onSignUpFormSubmit = values => {
+    this.props.createUser(values);
+  };
+
   render() {
     const { handleSubmit, submitting, invalid } = this.props;
 
@@ -25,7 +30,10 @@ class SignUpForm extends Component {
         className="ui segment"
         style={{ width: "90%", maxWidth: "500px", margin: "0 auto" }}
       >
-        <form className="ui form" onSubmit={handleSubmit}>
+        <form
+          className="ui form"
+          onSubmit={handleSubmit(this.onSignUpFormSubmit)}
+        >
           <Field
             name="username"
             label="用户名"
@@ -65,7 +73,10 @@ const validate = values => {
   return errors;
 };
 
-export default connect(null)(
+export default connect(
+  null,
+  { createUser }
+)(
   reduxForm({
     form: "SignUp",
     validate
