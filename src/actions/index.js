@@ -12,11 +12,10 @@ export const fetchBaizis = () => async dispatch => {
   }
 };
 
-export const createBaizi = newBaizi => async (dispatch, getState) => {
-  // const token= getState().user;
+export const createBaizi = newBaizi => async dispatch => {
   const data = await baiziApi.createBaizi(newBaizi);
   if (data) {
-    dispatch({ type: types.CREATE_BAIZI, payload: data });
+    dispatch({ type: types.CREATE_BAIZI, payload: newBaizi });
   } else {
     console.log("Error: can't create baizi.");
   }

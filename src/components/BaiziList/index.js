@@ -5,7 +5,9 @@ import Baizi from "../Baizi";
 
 class BaiziList extends Component {
   componentDidMount() {
-    this.props.fetchBaizis();
+    if (this.props.baizis.length === 0) {
+      this.props.fetchBaizis();
+    }
   }
 
   renderCards() {
