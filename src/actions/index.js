@@ -22,12 +22,13 @@ export const createBaizi = newBaizi => async (dispatch, getState) => {
 };
 
 export const createUser = newUser => async dispatch => {
-  const token = await userApi.createUser(newUser.username, newUser.password);
+  const { token } = await userApi.createUser(newUser.username, newUser.password);
   if (token) {
     dispatch({
       type: types.CREATE_USER,
       payload: token
     });
+    return token;
   } else {
     console.log("Error with createUser");
   }
