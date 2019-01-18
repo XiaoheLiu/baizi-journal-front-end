@@ -8,7 +8,7 @@ export const createBaizi = async body => {
     url: BASE_URL,
     data: body,
     headers: {
-      authorization: "user-token"
+      authorization: localStorage.getItem('baiziUserToken')
     }
   };
   const data = await request(requestOptions);
@@ -20,7 +20,7 @@ export const fetchBaizis = async () => {
     method: "GET",
     url: BASE_URL,
     headers: {
-      authorization: "user-token"
+      authorization: localStorage.getItem('baiziUserToken')
     }
   };
   const data = await request(requestOptions);
