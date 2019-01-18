@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
+import { withRouter } from "react-router-dom";
 import { authUser } from "../../actions";
 
 class SignInForm extends Component {
@@ -17,8 +18,11 @@ class SignInForm extends Component {
     );
   };
 
-  onSignInFormSubmit = values => {
-    this.props.authUser(values);
+  onSignInFormSubmit = async values => {
+    const { authUser, history } = this.props;
+    const token = await authUser(values);
+    localStorage.setItem("baiziUserToken", token);
+    history.push("/read");
   };
 
   render() {
@@ -69,12 +73,14 @@ const validate = values => {
   return errors;
 };
 
-export default connect(
-  null,
-  { authUser }
-)(
-  reduxForm({
-    form: "SignIn",
-    validate
-  })(SignInForm)
+export default withRouter(
+  connect(
+    null,
+    { authUser }
+  )(
+    reduxForm({
+      form: "SignIn",
+      validate
+    })(SignInForm)
+  )
 );

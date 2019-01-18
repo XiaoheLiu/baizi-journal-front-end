@@ -13,6 +13,7 @@ export const fetchBaizis = () => async dispatch => {
 };
 
 export const createBaizi = newBaizi => async (dispatch, getState) => {
+  // const token= getState().user;
   const data = await baiziApi.createBaizi(newBaizi);
   if (data) {
     dispatch({ type: types.CREATE_BAIZI, payload: data });
@@ -22,7 +23,10 @@ export const createBaizi = newBaizi => async (dispatch, getState) => {
 };
 
 export const createUser = newUser => async dispatch => {
-  const { token } = await userApi.createUser(newUser.username, newUser.password);
+  const { token } = await userApi.createUser(
+    newUser.username,
+    newUser.password
+  );
   if (token) {
     dispatch({
       type: types.CREATE_USER,
@@ -35,12 +39,13 @@ export const createUser = newUser => async dispatch => {
 };
 
 export const authUser = user => async dispatch => {
-  const token = await userApi.authUser(user.username, user.password);
+  const { token } = await userApi.authUser(user.username, user.password);
   if (token) {
     dispatch({
       type: types.AUTH_USER,
       payload: token
     });
+    return token;
   } else {
     console.log("Error: can't log in");
   }
