@@ -1,38 +1,68 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
+import { logoutUser } from "../../actions";
 
-const NavBar = () => {
-  return (
-    <div className="ui brown fixed inverted menu">
-      <div className="ui container">
-        <div className="header item">
-          {" "}
-          <Link to="/">百字本</Link>
-        </div>
-        <Link to="/write" className="item">
-          <i className="edit outline icon" />写
-        </Link>
-        <Link to="/read" className="item">
-          <i className="newspaper outline icon" />读
-        </Link>
-        <Link to="/search" className="item">
-          <i className="search icon" />搜
-        </Link>
-        <div className="right inverted brown menu">
-          <Link to="/signin" className="item">
-            <i className="sign in alternate icon" />
-            登入
-          </Link>
-          <Link to="/signup" className="item">
-            <strong>注册</strong>
-          </Link>
-          <a className="item">
-            <i className="sign out alternate icon" /> 登出
-          </a>
+class NavBar extends Component {
+  logout = () => {
+    localStorage.setItem("baiziUserToken", "");
+    this.props.logoutUser();
+    this.props.history.push("/");
+  };
+
+  render() {
+    const { isSignedIn } = this.props;
+    return (
+      <div className="ui brown fixed inverted menu">
+        <div className="ui container">
+          <div className="header item">
+            <Link to="/">百字本</Link>
+          </div>
+          {isSignedIn && (
+            <Link to="/write" className="item">
+              <i className="edit outline icon" />写
+            </Link>
+          )}
+          {isSignedIn && (
+            <Link to="/read" className="item">
+              <i className="newspaper outline icon" />读
+            </Link>
+          )}
+          {isSignedIn && (
+            <Link to="/search" className="item">
+              <i className="search icon" />搜
+            </Link>
+          )}
+
+          <div className="right inverted brown menu">
+            {!isSignedIn && (
+              <Link to="/signin" className="item">
+                <i className="sign in alternate icon" />
+                登入
+              </Link>
+            )}
+            {!isSignedIn && (
+              <Link to="/signup" className="item">
+                <strong>注册</strong>
+              </Link>
+            )}
+            {isSignedIn && (
+              <a className="item" onClick={this.logout}>
+                <i className="sign out alternate icon" /> 登出
+              </a>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export default NavBar;
+const mapStateToProps = state => ({ isSignedIn: state.user.length > 0 });
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { logoutUser }
+  )(NavBar)
+);

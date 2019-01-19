@@ -1,4 +1,4 @@
-import { FETCH_BAIZIS, CREATE_BAIZI } from "../actions/types.js";
+import { FETCH_BAIZIS, CREATE_BAIZI, LOGOUT_USER } from "../actions/types.js";
 
 export default (state = [], action) => {
   switch (action.type) {
@@ -6,6 +6,8 @@ export default (state = [], action) => {
       return action.payload;
     case CREATE_BAIZI:
       return [...state, action.payload];
+    case LOGOUT_USER:
+      return [];
     default:
       return state;
   }

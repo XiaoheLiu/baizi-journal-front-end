@@ -1,7 +1,7 @@
 import React from "react";
 import "./Baizi.css";
 import { formatDate } from "../../utils/date";
-import { formatHtml } from "../../utils/formatBaizi";
+import { formatJSX } from "../../utils/formatBaizi";
 
 const Baizi = ({ date, content, weather, title }) => {
   return (
@@ -11,7 +11,7 @@ const Baizi = ({ date, content, weather, title }) => {
         <h2 className="ui right aligned header">
           {`${formatDate(date)} ${weather}`}
         </h2>
-        <p>{formatHtml(content)}</p>
+        <p>{formatJSX(content)}</p>
       </div>
     </div>
   );

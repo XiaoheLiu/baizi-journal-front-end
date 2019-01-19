@@ -15,7 +15,10 @@ export const fetchBaizis = () => async dispatch => {
 export const createBaizi = newBaizi => async dispatch => {
   const data = await baiziApi.createBaizi(newBaizi);
   if (data) {
-    dispatch({ type: types.CREATE_BAIZI, payload: newBaizi });
+    dispatch({
+      type: types.CREATE_BAIZI,
+      payload: { ...newBaizi, _id: newBaizi.date }
+    });
   } else {
     console.log("Error: can't create baizi.");
   }
@@ -48,4 +51,10 @@ export const authUser = user => async dispatch => {
   } else {
     console.log("Error: can't log in");
   }
+};
+
+export const logoutUser = () => {
+  return {
+    type: types.LOGOUT_USER
+  };
 };
