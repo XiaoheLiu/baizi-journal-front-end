@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Baizi from "../Baizi";
+import { connect } from "react-redux";
 import InfoMessage from "./InfoMessage";
 import { getToday } from "../../utils/date";
 import { hanziCounter } from "../../utils/formatBaizi";
-
 import { SINGLE_BAIZI_CHARACTER_LIMIT } from "../../constants";
 
 class BaiziInput extends Component {
@@ -36,6 +36,10 @@ class BaiziInput extends Component {
   };
 
   render() {
+    const alreadyBaiziedToday = this.props.latestBaizi.date === getToday();
+    if (alreadyBaiziedToday) {
+      return <div>今天已经提交过百字啦！！！！！</div>
+    }
     const { content, date, title, weather, showInfoMessage } = this.state;
     const count = hanziCounter(content);
     const button =
@@ -122,4 +126,7 @@ class BaiziInput extends Component {
   }
 }
 
-export default BaiziInput;
+const mapStateToProps = (state) => ({
+  latestBaizi: state.baizis[0] ? state.baizis[0] : {}
+})
+export default connect(mapStateToProps)(BaiziInput);

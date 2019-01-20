@@ -5,9 +5,10 @@ import { logoutUser } from "../../actions";
 
 class NavBar extends Component {
   logout = () => {
+    const { logoutUser, history } = this.props;
     localStorage.setItem("baiziUserToken", "");
-    this.props.logoutUser();
-    this.props.history.push("/");
+    logoutUser();
+    history.push("/");
   };
 
   render() {
@@ -58,7 +59,9 @@ class NavBar extends Component {
   }
 }
 
-const mapStateToProps = state => ({ isSignedIn: state.user.length > 0 });
+const mapStateToProps = state => ({
+  isSignedIn: state.user.length > 0 || localStorage.getItem("baiziUserToken")
+});
 
 export default withRouter(
   connect(
