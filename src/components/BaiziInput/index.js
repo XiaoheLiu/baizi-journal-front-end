@@ -36,10 +36,8 @@ class BaiziInput extends Component {
   };
 
   render() {
-    const alreadyBaiziedToday = this.props.latestBaizi.date === getToday();
-    if (alreadyBaiziedToday) {
-      return <div>今天已经提交过百字啦！！！！！</div>
-    }
+    // need to think of a better way to handle the scenario when user already submit baizi today
+  //  const alreadyBaiziedToday = this.props.latestBaizi.date === getToday();
     const { content, date, title, weather, showInfoMessage } = this.state;
     const count = hanziCounter(content);
     const button =
