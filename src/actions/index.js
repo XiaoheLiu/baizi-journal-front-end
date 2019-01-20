@@ -17,7 +17,7 @@ export const createBaizi = newBaizi => async dispatch => {
   if (data) {
     dispatch({
       type: types.CREATE_BAIZI,
-      payload: { ...newBaizi, _id: newBaizi.date }
+      payload: { ...newBaizi, _id: data.baiziId }
     });
   } else {
     console.log("Error: can't create baizi.");
