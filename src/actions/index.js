@@ -3,7 +3,7 @@ import * as userApi from "../integration/user";
 import * as types from "./types";
 
 export const fetchBaizis = () => async dispatch => {
-  const data = await baiziApi.fetchBaizis().catch(err => {
+  const data = await baiziApi.fetchBaizis().catch(() => {
     console.log("Error: can't fetch baizi.");
   });
   if (data) {
@@ -12,7 +12,7 @@ export const fetchBaizis = () => async dispatch => {
 };
 
 export const createBaizi = newBaizi => async dispatch => {
-  const data = await baiziApi.createBaizi(newBaizi).catch(err => {
+  const data = await baiziApi.createBaizi(newBaizi).catch(() => {
     console.log("Error: can't create baizi.");
   });
   if (data) {
