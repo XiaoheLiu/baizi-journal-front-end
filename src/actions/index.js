@@ -5,7 +5,6 @@ import * as types from "./types";
 export const fetchBaizis = () => async dispatch => {
   const data = await baiziApi.fetchBaizis().catch(err => {
     console.log("Error: can't fetch baizi.");
-    console.log(err);
   });
   if (data) {
     dispatch({ type: types.FETCH_BAIZIS, payload: data });
@@ -15,7 +14,6 @@ export const fetchBaizis = () => async dispatch => {
 export const createBaizi = newBaizi => async dispatch => {
   const data = await baiziApi.createBaizi(newBaizi).catch(err => {
     console.log("Error: can't create baizi.");
-    console.log(err);
   });
   if (data) {
     dispatch({
@@ -29,7 +27,6 @@ export const createUser = newUser => async dispatch => {
   const { token } = await userApi
     .createUser(newUser.username, newUser.password)
     .catch(error => {
-      console.log(error);
       if (error.response.status === 409) {
         dispatch({
           type: types.DUPLICATE_USER,
@@ -60,15 +57,12 @@ export const authUser = user => async dispatch => {
         payload: { errorMessage: "登录失败：用户名或密码错误！" }
       });
     });
-
   if (token) {
     dispatch({
       type: types.AUTH_USER,
       payload: token
     });
     return token;
-  } else {
-    console.log("Error: can't log in");
   }
 };
 
