@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import { createUser } from "../../actions";
 import { PASSWORD_MIN_LENGTH, USERNAME_MAX_LENGTH } from "../../constants";
 
@@ -21,19 +21,22 @@ class SignUpForm extends Component {
 
   onSignUpFormSubmit = async values => {
     const { createUser, history } = this.props;
-    const token = await createUser(values);
-    localStorage.setItem('baiziUserToken', token);
-    history.push('/read');
+    const token = await createUser(values).catch(() => {});
+    if (token) {
+      localStorage.setItem("baiziUserToken", token);
+      history.push("/read");
+    }
   };
 
   render() {
-    const { handleSubmit, submitting, invalid } = this.props;
+    const { handleSubmit, submitting, invalid, errorMessage } = this.props;
 
     return (
       <div
         className="ui segment"
         style={{ width: "90%", maxWidth: "500px", margin: "0 auto" }}
       >
+        <h1 className="ui center aligned header">注册</h1>
         <form
           className="ui form"
           onSubmit={handleSubmit(this.onSignUpFormSubmit)}
@@ -58,6 +61,9 @@ class SignUpForm extends Component {
             注册
           </button>
         </form>
+        {errorMessage && (
+          <p style={{ color: "red", marginTop: "5px" }}>{errorMessage}</p>
+        )}
       </div>
     );
   }
@@ -77,12 +83,18 @@ const validate = values => {
   return errors;
 };
 
-export default withRouter(connect(
-  null,
-  { createUser }
-)(
-  reduxForm({
-    form: "SignUp",
-    validate
-  })(SignUpForm)
-));
+const mapStateToProps = state => ({
+  errorMessage: state.user.errorMessage
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { createUser }
+  )(
+    reduxForm({
+      form: "SignUp",
+      validate
+    })(SignUpForm)
+  )
+);

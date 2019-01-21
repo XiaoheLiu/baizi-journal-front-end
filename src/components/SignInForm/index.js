@@ -20,19 +20,22 @@ class SignInForm extends Component {
 
   onSignInFormSubmit = async values => {
     const { authUser, history } = this.props;
-    const token = await authUser(values);
-    localStorage.setItem("baiziUserToken", token);
-    history.push("/read");
+    const token = await authUser(values).catch(() => {});
+    if (token) {
+      localStorage.setItem("baiziUserToken", token);
+      history.push("/read");
+    }
   };
 
   render() {
-    const { handleSubmit, submitting, invalid } = this.props;
+    const { handleSubmit, submitting, invalid, errorMessage } = this.props;
 
     return (
       <div
         className="ui segment"
         style={{ width: "90%", maxWidth: "500px", margin: "0 auto" }}
       >
+        <h1 className="ui center aligned header">登入</h1>
         <form
           className="ui form"
           onSubmit={handleSubmit(this.onSignInFormSubmit)}
@@ -57,6 +60,9 @@ class SignInForm extends Component {
             登入
           </button>
         </form>
+        {errorMessage && (
+          <p style={{ color: "red", marginTop: "5px" }}>{errorMessage}</p>
+        )}
       </div>
     );
   }
@@ -73,9 +79,13 @@ const validate = values => {
   return errors;
 };
 
+const mapStateToProps = state => ({
+  errorMessage: state.user.errorMessage
+});
+
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     { authUser }
   )(
     reduxForm({
