@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Baizi from "../Baizi";
-import { connect } from "react-redux";
 import InfoMessage from "./InfoMessage";
+import ErrorMessage from "./ErrorMessage";
+import Baizi from "../Baizi";
 import { getToday } from "../../utils/date";
 import { hanziCounter } from "../../utils/formatBaizi";
 import { SINGLE_BAIZI_CHARACTER_LIMIT } from "../../constants";
@@ -12,33 +12,44 @@ class BaiziInput extends Component {
     date: getToday(),
     title: "",
     weather: "",
-    showInfoMessage: true
+    showInfoMsg: true,
+    showErrorMsg: false
   };
 
   onInputChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onFormSubmit = e => {
+  onFormSubmit = async e => {
     e.preventDefault();
-    const { showInfoMessage, ...baizi } = this.state;
-    this.props.onSubmit(baizi);
-    this.setState({
-      content: "",
-      date: getToday(),
-      title: "",
-      weather: ""
-    });
+    const { showInfoMsg, showErrorMsg, ...baizi } = this.state;
+    const isDuplicated = await this.props.baiziDates.includes(baizi.date);
+    if (isDuplicated) {
+      this.setState({ showErrorMsg: true });
+    } else {
+      this.props.onSubmit(baizi);
+      this.setState({
+        content: "",
+        date: getToday(),
+        title: "",
+        weather: ""
+      });
+    }
   };
 
-  onCloseInfoMessage = () => {
-    this.setState({ showInfoMessage: false });
+  onCloseMessage = type => {
+    this.setState({ [type]: false });
   };
 
   render() {
-    // need to think of a better way to handle the scenario when user already submit baizi today
-  //  const alreadyBaiziedToday = this.props.latestBaizi.date === getToday();
-    const { content, date, title, weather, showInfoMessage } = this.state;
+    const {
+      content,
+      date,
+      title,
+      weather,
+      showInfoMsg,
+      showErrorMsg
+    } = this.state;
     const count = hanziCounter(content);
     const button =
       count === SINGLE_BAIZI_CHARACTER_LIMIT
@@ -50,7 +61,12 @@ class BaiziInput extends Component {
         <h4 className="ui horizontal divider header" id="xiebaizi">
           <i className="edit outline icon" />
         </h4>
-        {showInfoMessage && <InfoMessage onClose={this.onCloseInfoMessage} />}
+        {showErrorMsg && (
+          <ErrorMessage onClose={() => this.onCloseMessage("showErrorMsg")} />
+        )}
+        {showInfoMsg && (
+          <InfoMessage onClose={() => this.onCloseMessage("showInfoMsg")} />
+        )}
         <div className="ui centered segment">
           <form className="ui form" onSubmit={this.onFormSubmit}>
             <div className="three fields">
@@ -124,7 +140,4 @@ class BaiziInput extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  latestBaizi: state.baizis[0] ? state.baizis[0] : {}
-})
-export default connect(mapStateToProps)(BaiziInput);
+export default BaiziInput;
