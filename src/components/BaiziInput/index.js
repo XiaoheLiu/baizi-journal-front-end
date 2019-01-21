@@ -20,20 +20,22 @@ class BaiziInput extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onFormSubmit = async e => {
+  onFormSubmit = e => {
     e.preventDefault();
     const { showInfoMsg, showErrorMsg, ...baizi } = this.state;
-    const isDuplicated = await this.props.baiziDates.includes(baizi.date);
-    if (isDuplicated) {
-      this.setState({ showErrorMsg: true });
-    } else {
-      this.props.onSubmit(baizi);
-      this.setState({
-        content: "",
-        date: getToday(),
-        title: "",
-        weather: ""
-      });
+    const { baiziDates } = this.props;
+    if (baiziDates) {
+      if (baiziDates.includes(baizi.date)) {
+        this.setState({ showErrorMsg: true });
+      } else {
+        this.props.onSubmit(baizi);
+        this.setState({
+          content: "",
+          date: getToday(),
+          title: "",
+          weather: ""
+        });
+      }
     }
   };
 
