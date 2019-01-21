@@ -11,18 +11,15 @@ class BaiziList extends Component {
   }
 
   renderCards() {
-    return this.props.baizis
-      .slice(0)
-      .reverse()
-      .map(b => (
-        <Baizi
-          content={b.content}
-          date={b.date}
-          weather={b.weather}
-          title={b.title}
-          key={b._id}
-        />
-      ));
+    return this.props.baizis.map(b => (
+      <Baizi
+        content={b.content}
+        date={b.date}
+        weather={b.weather}
+        title={b.title}
+        key={b._id}
+      />
+    ));
   }
 
   render() {

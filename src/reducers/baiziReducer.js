@@ -5,7 +5,7 @@ export default (state = [], action) => {
     case FETCH_BAIZIS:
       return action.payload;
     case CREATE_BAIZI:
-      return [...state, action.payload];
+      return [action.payload, ...state];
     case LOGOUT_USER:
       return [];
     default:
