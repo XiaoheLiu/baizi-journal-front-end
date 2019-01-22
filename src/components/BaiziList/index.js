@@ -28,6 +28,12 @@ class BaiziList extends Component {
         <h4 className="ui horizontal divider header" id="dubaizi">
           <i className="newspaper outline icon" />
         </h4>
+        {!this.props.baizis.length && (
+          <div className="ui brown message">
+            <h2>百字本空空如也……</h2>
+            <p>快去写第一篇百字吧！</p>
+          </div>
+        )}
         {this.renderCards()}
       </div>
     );
