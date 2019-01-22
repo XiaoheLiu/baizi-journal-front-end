@@ -1,9 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
-import { logoutUser } from "../../actions";
+import { logoutUser, getUser } from "../../actions";
 
 class NavBar extends Component {
+  componentDidMount = async () => {
+    const { isSignedIn, getUser } = this.props;
+    if (isSignedIn) {
+      console.log("signed in!");
+      const info = await getUser();
+      console.log("info:" + info);
+    }
+  };
+
   logout = () => {
     const { logoutUser, history } = this.props;
     localStorage.setItem("baiziUserToken", "");
@@ -48,6 +57,11 @@ class NavBar extends Component {
               </Link>
             )}
             {isSignedIn && (
+              <a className="item">
+                <i className="user circle icon" /> 用户
+              </a>
+            )}
+            {isSignedIn && (
               <a className="item" onClick={this.logout}>
                 <i className="sign out alternate icon" /> 登出
               </a>
@@ -66,6 +80,6 @@ const mapStateToProps = state => ({
 export default withRouter(
   connect(
     mapStateToProps,
-    { logoutUser }
+    { logoutUser, getUser }
   )(NavBar)
 );

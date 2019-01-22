@@ -42,7 +42,7 @@ export const createUser = newUser => async dispatch => {
   if (token) {
     dispatch({
       type: types.CREATE_USER,
-      payload: token
+      payload: { token }
     });
     return token;
   }
@@ -60,9 +60,20 @@ export const authUser = user => async dispatch => {
   if (token) {
     dispatch({
       type: types.AUTH_USER,
-      payload: token
+      payload: { token }
     });
     return token;
+  }
+};
+
+export const getUser = () => async dispatch => {
+  const userInfo = await userApi.getUser().catch(err => console.log(err));
+  console.log(userInfo);
+  if (userInfo) {
+    dispatch({
+      type: types.GET_USER,
+      payload: userInfo
+    });
   }
 };
 

@@ -28,12 +28,14 @@ export const authUser = async (username, password) => {
   return data;
 };
 
-export const getUser = async token => {
+export const getUser = async () => {
+  const token = localStorage.getItem("baiziUserToken");
   const requestOptions = {
     method: "GET",
     url: BASE_URL,
-    data: { token }
+    date: { token }
   };
+  console.log(token);
   const data = await request(requestOptions);
   return data;
 };
