@@ -29,13 +29,13 @@ export const authUser = async (username, password) => {
 };
 
 export const getUser = async () => {
-  const token = localStorage.getItem("baiziUserToken");
   const requestOptions = {
     method: "GET",
     url: BASE_URL,
-    date: { token }
+    headers: {
+      authorization: localStorage.getItem("baiziUserToken")
+    }
   };
-  console.log(token);
   const data = await request(requestOptions);
   return data;
 };

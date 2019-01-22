@@ -4,14 +4,12 @@ import { Link, withRouter } from "react-router-dom";
 import { logoutUser, getUser } from "../../actions";
 
 class NavBar extends Component {
-  componentDidMount = async () => {
+  componentDidMount() {
     const { isSignedIn, getUser } = this.props;
     if (isSignedIn) {
-      console.log("signed in!");
-      const info = await getUser();
-      console.log("info:" + info);
+      getUser();
     }
-  };
+  }
 
   logout = () => {
     const { logoutUser, history } = this.props;
@@ -21,7 +19,7 @@ class NavBar extends Component {
   };
 
   render() {
-    const { isSignedIn } = this.props;
+    const { isSignedIn, username } = this.props;
     return (
       <div className="ui brown fixed inverted menu">
         <div className="ui container">
@@ -58,7 +56,7 @@ class NavBar extends Component {
             )}
             {isSignedIn && (
               <a className="item">
-                <i className="user circle icon" /> 用户
+                <i className="user circle icon" /> {username}
               </a>
             )}
             {isSignedIn && (
@@ -74,7 +72,8 @@ class NavBar extends Component {
 }
 
 const mapStateToProps = state => ({
-  isSignedIn: state.user.length > 0 || localStorage.getItem("baiziUserToken")
+  isSignedIn: localStorage.getItem("baiziUserToken"),
+  username: state.user.username
 });
 
 export default withRouter(

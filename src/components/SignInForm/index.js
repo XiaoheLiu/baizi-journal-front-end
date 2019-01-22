@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import { withRouter } from "react-router-dom";
-import { authUser } from "../../actions";
+import { authUser, getUser } from "../../actions";
 
 class SignInForm extends Component {
   renderField = ({ input, label, type, meta: { touched, error } }) => {
@@ -19,11 +19,12 @@ class SignInForm extends Component {
   };
 
   onSignInFormSubmit = async values => {
-    const { authUser, history } = this.props;
+    const { authUser, history, getUser } = this.props;
     const token = await authUser(values).catch(() => {});
     if (token) {
       localStorage.setItem("baiziUserToken", token);
       history.push("/read");
+      getUser();
     }
   };
 
@@ -86,7 +87,7 @@ const mapStateToProps = state => ({
 export default withRouter(
   connect(
     mapStateToProps,
-    { authUser }
+    { authUser, getUser }
   )(
     reduxForm({
       form: "SignIn",

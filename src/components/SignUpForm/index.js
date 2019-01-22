@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import { withRouter } from "react-router-dom";
-import { createUser } from "../../actions";
+import { createUser, getUser } from "../../actions";
 import { PASSWORD_MIN_LENGTH, USERNAME_MAX_LENGTH } from "../../constants";
 
 class SignUpForm extends Component {
@@ -20,11 +20,12 @@ class SignUpForm extends Component {
   };
 
   onSignUpFormSubmit = async values => {
-    const { createUser, history } = this.props;
+    const { createUser, history, getUser } = this.props;
     const token = await createUser(values).catch(() => {});
     if (token) {
       localStorage.setItem("baiziUserToken", token);
       history.push("/read");
+      getUser();
     }
   };
 
@@ -90,7 +91,7 @@ const mapStateToProps = state => ({
 export default withRouter(
   connect(
     mapStateToProps,
-    { createUser }
+    { createUser, getUser }
   )(
     reduxForm({
       form: "SignUp",
