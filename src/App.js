@@ -11,13 +11,14 @@ import Footer from "./components/Footer";
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
 import PageNotFound from "./components/PageNotFound";
+import "./App.css";
 
 class App extends Component {
   render() {
     return (
-      <div style={{ margin: "4em auto" }}>
+      <div id="page-container">
         <BrowserRouter>
-          <div>
+          <div id="content-wrap">
             <NavBar />
             <Switch>
               <RedirectIfLoggedIn path="/" exact component={Landing} />
