@@ -1,6 +1,6 @@
 import { request } from "./index";
 
-const BASE_URL = `http://localhost:3001/api/user`;
+const BASE_URL = `/api/user`;
 
 export const createUser = async (username, password) => {
   const requestOptions = {

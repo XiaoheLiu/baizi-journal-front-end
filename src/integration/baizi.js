@@ -1,6 +1,6 @@
 import { request } from "./index";
 
-const BASE_URL = `http://localhost:3001/api/baizi`;
+const BASE_URL = `/api/baizi`;
 
 export const createBaizi = async body => {
   const requestOptions = {
@@ -8,7 +8,7 @@ export const createBaizi = async body => {
     url: BASE_URL,
     data: body,
     headers: {
-      authorization: localStorage.getItem('baiziUserToken')
+      authorization: localStorage.getItem("baiziUserToken")
     }
   };
   const data = await request(requestOptions);
@@ -20,7 +20,7 @@ export const fetchBaizis = async () => {
     method: "GET",
     url: BASE_URL,
     headers: {
-      authorization: localStorage.getItem('baiziUserToken')
+      authorization: localStorage.getItem("baiziUserToken")
     }
   };
   const data = await request(requestOptions);
